@@ -9,4 +9,6 @@
 @import "./styles/Pages/CategoryDetailPage.css";
 
 @import "./styles/Components/Header.css";
-@import "./styles/Components/Footer.css"
+@import "./styles/Components/Footer.css";
+@import "./styles/Components/Spinner.css";
+@import "./styles/Components/SaveSpinner.css";

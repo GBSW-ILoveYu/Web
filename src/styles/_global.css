@@ -40,3 +40,14 @@ html, body {
 img {
   height: 100%;
 }
+
+.input-error {
+  border-color: #FF4D4F !important;
+}
+
+.error-message {
+  color: #FF4D4F;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}

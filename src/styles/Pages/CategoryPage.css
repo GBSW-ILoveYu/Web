@@ -1,6 +1,6 @@
 .lsp-wrapper {
  margin-top: 80px;
- margin-bottom: 90px;
+ margin-bottom: 242.5px;
  padding: 0 22%;
 }
 
@@ -81,4 +81,54 @@
 .lsp-category-name {
  font-size: 18px;
  font-weight: bold;
+}
+
+/* 반응형 */
+
+/* 1024px */
+@media (max-width: 1024px) {
+  .lsp-wrapper {
+    padding: 0 17%;
+    margin-bottom: 180px;
+  }
+
+  .lsp-category-container {
+    flex-wrap: wrap;
+    column-gap: 30px;
+    row-gap: 20px;
+  }
+
+  .lsp-search-input {
+    padding-left: 45px;
+  }
+
+  .lsp-search-icon {
+    width: 18px;
+    height: 18px;
+    left: 12px;
+  }
+}
+
+/*  768px */
+@media (max-width: 768px) {
+  .lsp-wrapper {
+    padding: 0 13%;
+    margin-bottom: 120px;
+  }
+
+  .lsp-category-container {
+    flex-wrap: nowrap;
+    flex-direction: column;
+    row-gap: 20px;
+  }
+
+  .lsp-search-input {
+    padding-left: 40px;
+  }
+
+  .lsp-search-icon {
+    width: 16px;
+    height: 16px;
+    left: 10px;
+  }
 }

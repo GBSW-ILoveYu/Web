@@ -1,0 +1,24 @@
+.SaveSpinner-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.SaveSpinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(54, 170, 252, 0.3);
+  border-top-color: rgba(54, 170, 252, 0.8);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+.SaveSpinner-message {
+  font-size: 14px;
+ color: #0890f1;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

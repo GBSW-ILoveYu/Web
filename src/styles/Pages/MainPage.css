@@ -72,6 +72,13 @@
  font-weight: bold;
 }
 
+.save-success {
+  font-size: 14px;
+  margin-left: 10px;
+  color: #36AAFC;
+  align-self: center;
+}
+
 
 /* 링크 저장소 */
 .mp-link-storage-section {
@@ -129,7 +136,7 @@
 /* 최근 열어본 링크 */
 .mp-recent-links-section {
  padding: 0 22%;
- margin-bottom: 150px;
+ margin-bottom: 50px;
 }
 
 .mp-recent-links-boxes {
@@ -139,8 +146,111 @@
 }
 
 .mp-recent-box {
+ display: flex;
+ align-items: center;
  background-color: #F7F7F7;
  width: 100%;
  height: 40px;
  border-radius: 4px;
+}
+
+.mp-recent-box div {
+ display: flex;
+ align-items: center;
+ text-decoration: none;
+ color: black;
+}
+
+.mp-recent-box img {
+ width: 32px;
+ height: 32px;
+ border-radius: 50%;
+ padding: 0 3px;
+}
+
+/* 반응형 */
+
+/* 1024px 이하 */
+@media (max-width: 1024px) {
+  .mp-top-container {
+    padding: 5% 8% 0px 8%;
+  }
+
+  .mp-link-storage-section,
+  .mp-recent-links-section {
+    padding: 0 8%;
+  }
+
+  .mp-link-category-box {
+    flex: 1 1 calc(33.33% - 16px); /* 3열 */
+  }
+}
+
+/* 768px 이하 */
+@media (max-width: 768px) {
+  .mp-top-container {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 40px 6% 20px;
+  }
+
+  .mp-top-content {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .mp-icon-container {
+    width: 80px;
+    height: 80px;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .mp-input-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .mp-link-input {
+    width: 95%;
+  }
+
+  .mp-save-button {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .save-success {
+    align-self: flex-start;
+    margin-left: 0;
+  }
+
+  .mp-link-storage-section,
+  .mp-recent-links-section {
+    padding: 0 6%;
+  }
+
+  .mp-link-category-box {
+    flex: 1 1 calc(50% - 16px); /* 2열 */
+  }
+
+  .mp-section-title {
+    font-size: 16px;
+  }
+
+  .mp-recent-box {
+    height: auto;
+    padding: 8px;
+  }
+
+  .mp-recent-box img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .mp-recent-box div {
+    font-size: 14px;
+  }
 }

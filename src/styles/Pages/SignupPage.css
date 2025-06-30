@@ -58,16 +58,6 @@
  text-align: left;
 }
 
-.input-error {
- border-color: #FF4D4F !important;
-}
-
-.error-message {
- color: #FF4D4F;
- font-size: 12px;
- margin-top: 5px;
-}
-
 .join-button {
  width: 100%;
  padding: 12px;

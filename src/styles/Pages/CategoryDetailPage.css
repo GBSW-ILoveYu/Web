@@ -1,99 +1,211 @@
 .cdp-wrapper {
- margin-top: 80px;
- padding: 0 22%;
+  margin-top: 80px;
+  padding: 0 22%;
+  padding-bottom: 140px;
 }
 
 .cdp-header {
- font-size: 18px;
- font-weight: bold;
- text-align: left;
- margin-left: 18px;
- margin-bottom: 23px;
+  display: flex;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+  margin-left: 18px;
+  margin-bottom: 23px;
 }
 
 .cdp-header-title {
- color: #36AAFC;
- cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #36AAFC;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.cdp-header-arrow{
+  width: 18px;
+  height: 18px;
+  margin-left: 8px;
 }
 
 /* 검색 */
-
 .cdp-search-area {
- width: 100%;
- margin-bottom: 60px;
+  width: 100%;
+  margin-bottom: 40px;
 }
 
 .cdp-search-input-container {
- position: relative;
- width: 100%;
+  position: relative;
+  width: 100%;
 }
 
 .cdp-search-input {
- box-sizing: border-box;
- width: 100%;
- padding: 11px 10px 12px 50px;
- font-size: 14px;
- border: none;
- outline: none;
- border-radius: 7px;
- background-color: #F7F7F7;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 11px 10px 12px 50px;
+  font-size: 14px;
+  border: none;
+  outline: none;
+  border-radius: 7px;
+  background-color: #F7F7F7;
 }
 
 .cdp-search-icon {
- position: absolute;
- left: 15px;
- top: 50%;
- transform: translateY(-50%);
- width: 20px;
- height: 20px;
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
 }
 
 /* 링크박스 */
 
 .cdp-linkbox-container {
- display: flex;
- flex-wrap: wrap;
- gap: 25px;
- margin-bottom: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-top: 20px;
+  margin-bottom: 100px;
 }
 
 .cdp-linkbox {
- flex: 0 1 calc((100% - 50px) / 3);
- height: 140px;
- background-color: #eeeeee;
- border-radius: 8px;
- box-sizing: border-box;
+  position: relative;
+  flex: 0 1 calc((100% - 50px) / 3);
+  box-shadow: #999 0px 0px 1px 0px;
+  height: 180px;
+  background-color: #f3f3f3;
+  border-radius: 8px;
+  box-sizing: border-box;
+  cursor: pointer;
+  text-decoration: none;
 }
 
-.cdp-no-links {
- color: #999;
- font-size: 14px;
+.cdp-link-img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
+.cdp-link-desc {
+  height: 40px;
+  padding: 4px;
+  font-size: 14px;
+  overflow: hidden;
+  color: black; 
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  text-overflow: ellipsis
+}
+
+
+/* ... 컨테이너 */
+.cdp-ellipsis-container {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+}
+
+.cdp-ellipsis {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  padding: 4px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+  width: 20px;
+  height: 20px;
+}
+.cdp-ellipsis:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* 팝업 */
+.cdp-popup {
+  position: absolute;
+  width: 80px;
+  top: 27px;
+  right: 5px;
+}
+.cdp-delete-btn {
+  z-index: 10;
+  background-color: #e53e3e;
+  color: #ffffff;
+  border: 2px solid rgb(255, 255, 255);
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s;
+  transform-origin: top right;
+  animation: popupShow 0.2s ease-out;
+}
+.cdp-delete-btn:hover {
+  background-color: #c53030;
+}
+
+@keyframes popupShow {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 
 /* 카테고리가 없을떄 */
 
-.cdp-no-category-wrapper{
- height: 500px;
- display: flex;
- align-items: center;
- justify-content: center;
- flex-direction: column;
+.cdp-no-links {
+  color: #999;
+  margin-bottom: 22.2px;
+  font-size: 14px;
 }
 
-.cdp-no-category{
- font-size: 16px;
- margin-bottom: 20px;
+/* 반응형 */
+
+/* 화면 크기 1024px 이하 */
+@media (max-width: 1024px) {
+  .cdp-wrapper {
+    padding: 0 20%;
+  }
+
+  .cdp-linkbox {
+    flex: 0 1 calc((100% - 25px) / 2);
+  }
 }
 
-.cdp-no-category-button{
- width: 200px;
- height: 50px;
- border-radius: 4px;
- border: none;
- background-color: #36AAFC;
- color: white;
- font-weight: bold;
- font-size: 16px;
- cursor: pointer;
+/* 화면 크기 768px 이하 */
+@media (max-width: 768px) {
+  .cdp-wrapper {
+    padding: 0 20%;
+  }
+
+  .cdp-header {
+    font-size: 16px;
+    margin-left: 12px;
+  }
+
+  .cdp-header-arrow {
+    width: 16px;
+    height: 16px;
+  }
+
+  .cdp-search-input {
+    font-size: 13px;
+    padding: 10px 10px 10px 45px;
+  }
+
+  .cdp-search-icon {
+    width: 18px;
+    height: 18px;
+    left: 12px;
+  }
 }
