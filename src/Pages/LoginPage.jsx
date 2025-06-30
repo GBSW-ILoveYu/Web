@@ -1,70 +1,23 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import api from "../utils/api";
-import { validateLoginForm } from "../utils/validateForm";
-import { SaveSpinner } from '../Components';
-import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
-  const auth = useAuth();
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState({ field: "", message: "" });
-  const [rememberMe, setRememberMe] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-    if (error.field === name) setError({ field: "", message: "" });
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    const validationError = validateLoginForm(form);
-    if (validationError) {
-      setError(validationError);
+    if (!username.trim()) {
+      setError({ field: "username", message: "아이디를 입력해주세요." });
       return;
     }
-
-    setError({ field: "", message: "" });
-
-    try {
-      setIsSaving(true);
-      const response = await api.post("/auth/signin", {
-        email: form.email,
-        password: form.password,
-      });
-      const { accessToken, refreshToken } = response.data;
-      console.log("로그인 성공:", response);
-
-      if (rememberMe) {
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("refreshToken", refreshToken);
-      } else {
-        sessionStorage.setItem("accessToken", accessToken);
-        sessionStorage.setItem("refreshToken", refreshToken);
-      }
-
-      const userRes = await api.get("/auth/me");
-      auth.setUser(userRes.data);
-
-      navigate("/");
-    } catch (err) {
-      if (err.response && err.response.data) {
-        const { field, message } = err.response.data;
-        if (field) {
-          setError({ field, message });
-        } else {
-          setError({ field: "", message: message || "로그인에 실패했습니다." });
-          setIsSaving(false);
-        }
-      } else {
-        setError({ field: "", message: "서버 오류가 발생했습니다." });
-        setIsSaving(false);
-      }
+    if (!password.trim()) {
+      setError({ field: "password", message: "비밀번호를 입력해주세요." });
+      return;
     }
+    setError({ field: "", message: "" });
+    // 로그인 로직
   };
 
   return (
@@ -81,16 +34,19 @@ const LoginPage = () => {
 
         <form className="login-form" onSubmit={handleSubmit}>
           <div className="login-group">
-            <label htmlFor="email">이메일</label>
+            <label htmlFor="username">아이디</label>
             <input
               type="text"
-              id="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              className={error.field === "email" ? "input-error" : ""}
+              id="username"
+              name="username"
+              value={username}
+              onChange={(e) => {
+                setUsername(e.target.value);
+                if (error.field === "username") setError({ field: "", message: "" });
+              }}
+              className={error.field === "username" ? "input-error" : ""}
             />
-            {error.field === "email" && (
+            {error.field === "username" && (
               <p className="error-message">{error.message}</p>
             )}
           </div>
@@ -101,8 +57,11 @@ const LoginPage = () => {
               type="password"
               id="password"
               name="password"
-              value={form.password}
-              onChange={handleChange}
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                if (error.field === "password") setError({ field: "", message: "" });
+              }}
               className={error.field === "password" ? "input-error" : ""}
             />
             {error.field === "password" && (
@@ -110,28 +69,16 @@ const LoginPage = () => {
             )}
           </div>
 
-          {error.field === "" && error.message && (
-            <p className="error-message">{error.message}</p>
-          )}
-
           <div className="login-options">
             <label>
-              <input
-                type="checkbox"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-              />
-              <span>자동 로그인</span>
+              <input type="checkbox" />
+              <span>로그인 유지</span>
             </label>
           </div>
-          
-          {isSaving ? ( 
-            <SaveSpinner message={"로그인중..."}/>
-          ) : (
+
           <button type="submit" className="login-button">
             로그인
           </button>
-          )}
         </form>
 
         <div className="register-link">
@@ -143,6 +90,6 @@ const LoginPage = () => {
       </div>
     </div>
   );
-};
+}
 
 export default LoginPage;
