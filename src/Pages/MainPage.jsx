@@ -89,10 +89,13 @@ const MainPage = () => {
       return;
     }
     setSaveError('');
+    console.log('보내기 전 URL:', url);
     setIsSaving(true);
     try {
-      await api.post('/links', { url });
+      const postRes = await api.post('/links', { url });
+      console.log('POST 결과:', postRes.data);
       await loadData();
+      console.log('보낸 후 recentLinks:', recentLinks);
       setLinkInput('');
       setShowSuccess(true);
       setTimeout(() => setShowSuccess(false), 700);
