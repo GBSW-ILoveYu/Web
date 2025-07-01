@@ -37,14 +37,7 @@ const CategoryDetailPage = () => {
   useEffect(() => {
     const fetchLinks = async () => {
       try {
-        let response;
-        if (categoryId === 'all') {
-          response = await api.get('/links');
-        } else if (categoryId === 'etc') {
-          response = await api.get('/links');
-        } else {
-          response = await api.get('/links', { params: { category: categoryObj.name } });
-        }
+        let response = await api.get('/links', { params: { category: categoryObj.name } });
         const data = response.data;
         const filtered =
           categoryId === 'etc'

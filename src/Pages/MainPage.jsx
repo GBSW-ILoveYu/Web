@@ -5,21 +5,20 @@ import { categories as initCats } from '../utils/categories';
 import { Spinner, SaveSpinner } from '../Components';
 
 const MainPage = () => {
-  const [userName, setUserName] = useState('게스트');       // 유저 이름
-  const [linkInput, setLinkInput] = useState('');           // 링크 입력값
-  const [recentCount, setRecentCount] = useState(0);        // 최근 열람한 링크 개수 → 숫자형으로 초기화
-  const [recentLinks, setRecentLinks] = useState([]);       // 최근 열람한 링크
-  const [categories, setCategories] = useState([]);         // 카테고리 목록
-  const [saveError, setSaveError] = useState('');           // 링크저장 오류 메시지
-  const [isSaving, setIsSaving] = useState(false);          // 링크 저장 중 상태
-  const [showSuccess, setShowSuccess] = useState(false);    // 링크 저장 성공 여부
-  const [isLoading, setIsLoading] = useState(true);         // 페이지 로딩 상태
+  const [userName, setUserName] = useState('게스트');
+  const [linkInput, setLinkInput] = useState('');
+  const [recentCount, setRecentCount] = useState(0);
+  const [recentLinks, setRecentLinks] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [saveError, setSaveError] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const inputRef = useRef(null);
   const navigate = useNavigate();
 
   const loadData = async () => {
     try {
-      // 전체 링크 가져오기
       const linksRes = await api.get('/links');
       const [meRes, recentRes] = await Promise.all([
         api.get('/auth/me'),
@@ -30,6 +29,11 @@ const MainPage = () => {
       setRecentCount(recentRes.data.length);
       setRecentLinks(recentRes.data.slice(0, 3));
 
+      // 중복 제거된 initCats 생성 (ID 기준)
+      const uniqueInit = Array.from(
+        new Map(initCats.map(cat => [cat.id, cat])).values()
+      );
+
       // 카테고리별 개수 집계
       const grouped = linksRes.data.reduce((acc, link) => {
         const name = link.category || '기타';
@@ -39,7 +43,7 @@ const MainPage = () => {
 
       // 전체 카테고리 배열 구성
       const allCat = { id: 'all', name: '전체', count: linksRes.data.length };
-      const otherCats = initCats
+      const otherCats = uniqueInit
         .filter(c => c.id !== 'all')
         .map(c => ({ ...c, count: grouped[c.name] || 0 }));
 
@@ -52,8 +56,11 @@ const MainPage = () => {
     } catch (error) {
       console.error('데이터 로드 실패:', error);
 
+      const uniqueInit = Array.from(
+        new Map(initCats.map(cat => [cat.id, cat])).values()
+      );
       const fallbackAll = { id: 'all', name: '전체', count: 0 };
-      const fallbackOthers = initCats
+      const fallbackOthers = uniqueInit
         .filter(c => c.id !== 'all')
         .slice(0, 3)
         .map(c => ({ ...c, count: 0 }));
@@ -102,10 +109,8 @@ const MainPage = () => {
     }
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      handleSave();
-    }
+  const handleKeyDown = e => {
+    if (e.key === 'Enter') handleSave();
   };
 
   const handleOpen = async (id, url) => {

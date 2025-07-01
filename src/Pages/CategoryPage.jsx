@@ -42,7 +42,6 @@ const CategoryPage = () => {
 
         // 최종 상태 업데이트
         setCategories(dedupedCats);
-        console.log('CategoryPage 링크 개수 로드 성공', dedupedCats);
       } catch (err) {
         console.error('CategoryPage 링크 개수 로드 실패', err);
         const fallback = [
